@@ -1,0 +1,358 @@
+package main.java.presentacion;
+
+import java.awt.EventQueue;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Iterator;
+
+import javax.swing.JInternalFrame;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.SwingConstants;
+//import javax.swing.text.html.HTMLDocument.Iterator;
+
+import main.java.logica.clasesBasicas.Paquete;
+import main.java.logica.clasesBasicas.TipoPublicacion;
+import main.java.logica.clasesBasicas.TipoPublicacionPaquete;
+import main.java.logica.datatypes.DataEmpresa;
+import main.java.logica.datatypes.DataOfertaLaboral;
+import main.java.logica.datatypes.DataTipoPublicacion;
+import main.java.logica.datatypes.DataUsuario;
+import main.java.logica.excepciones.NoHayParaListarPaquetes;
+import main.java.logica.excepciones.YaExistePaquete;
+import main.java.logica.interfaces.Fabrica;
+import main.java.logica.interfaces.IOferta;
+import main.java.logica.interfaces.IUsuario;
+import main.java.logica.manejadores.ManejadorP;
+import main.java.logica.manejadores.ManejadorUsuarios;
+
+
+import javax.swing.JTextField;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+
+import javax.swing.JButton;
+import java.awt.Component;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import java.awt.FlowLayout;
+import java.awt.EventQueue;
+
+
+import javax.swing.JInternalFrame;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.SwingConstants;
+//import javax.swing.text.html.HTMLDocument.Iterator;
+
+import main.java.logica.clasesBasicas.Paquete;
+import main.java.logica.clasesBasicas.TipoPublicacionPaquete;
+import main.java.logica.datatypes.DataEmpresa;
+import main.java.logica.datatypes.DataOfertaLaboral;
+import main.java.logica.datatypes.DataTipoPublicacion;
+import main.java.logica.datatypes.DataUsuario;
+import main.java.logica.excepciones.NoHayParaListarPaquetes;
+import main.java.logica.excepciones.YaExistePaquete;
+import main.java.logica.interfaces.Fabrica;
+import main.java.logica.interfaces.IOferta;
+import main.java.logica.interfaces.IUsuario;
+import main.java.logica.manejadores.ManejadorP;
+import main.java.logica.manejadores.ManejadorUsuarios;
+
+
+import javax.swing.JTextField;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+
+import javax.swing.JButton;
+import java.awt.Component;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import java.awt.FlowLayout;
+import java.awt.EventQueue;
+public class ConsultaPaquete extends JInternalFrame {
+	private static final JComboBox String = null;
+	private JTextField nombreTextField;
+	private JTextField descripcionTextField;
+	private JTextField duracionTextField;
+	private JTextField descuentoTextField;
+	private JTextField costoTextField;
+	private JTextField nombreTipoTextField;
+	private JTextField descripcionTipoTextField;
+	private JTextField exposicionTextField;
+	private JTextField duracionTipoTextField;
+	private JTextField costoTipoTextField;
+	private JTextField fecAltaTextField;
+	
+	private JComboBox<String> paqueteComboBox;
+	//JComboBox paqueteComboBox = new JComboBox();
+	JComboBox<String> tiposComboBox = new JComboBox();
+	//JComboBox<String> tiposComboBox;
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ConsultaPaquete frame = new ConsultaPaquete();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public ConsultaPaquete() {
+		setClosable(true);
+		setResizable(true);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		
+		setBounds(100, 100, 500, 366);
+		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+		
+		JPanel panel = new JPanel();
+		getContentPane().add(panel);
+		panel.setLayout(new GridLayout(0, 2, 0, 4));
+		
+		JLabel paqueteLabel = new JLabel("Paquete");
+		paqueteLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(paqueteLabel);
+		
+		paqueteComboBox = new JComboBox();
+		panel.add(paqueteComboBox);
+		
+		JLabel nombreLabel = new JLabel("Nombre");
+		nombreLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(nombreLabel);
+		
+		nombreTextField = new JTextField();
+		nombreTextField.setEditable(false);
+		panel.add(nombreTextField);
+		nombreTextField.setColumns(10);
+		
+		JLabel descripcionLabel = new JLabel("Descripcion");
+		descripcionLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(descripcionLabel);
+		
+		descripcionTextField = new JTextField();
+		descripcionTextField.setEditable(false);
+		panel.add(descripcionTextField);
+		descripcionTextField.setColumns(10);
+		
+		JLabel duracionLabel = new JLabel("Duracion");
+		duracionLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(duracionLabel);
+		
+		duracionTextField = new JTextField();
+		duracionTextField.setEditable(false);
+		panel.add(duracionTextField);
+		duracionTextField.setColumns(10);
+		
+		JLabel descuentoLabel = new JLabel("Descuento");
+		descuentoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(descuentoLabel);
+		
+		descuentoTextField = new JTextField();
+		descuentoTextField.setEditable(false);
+		panel.add(descuentoTextField);
+		descuentoTextField.setColumns(10);
+		
+		JLabel costoLabel = new JLabel("Costo");
+		costoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(costoLabel);
+		
+		costoTextField = new JTextField();
+		costoTextField.setEditable(false);
+		panel.add(costoTextField);
+		costoTextField.setColumns(10);
+		
+		JLabel tiposLabel = new JLabel("Tipo de Publicacion");
+		tiposLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		panel.add(tiposLabel);
+		
+		//JComboBox tiposComboBox = new JComboBox();
+		panel.add(tiposComboBox);
+		
+		JPanel panelTipos = new JPanel();
+		getContentPane().add(panelTipos);
+		panelTipos.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		JLabel nombreTipoLabel = new JLabel("Nombre");
+		nombreTipoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		panelTipos.add(nombreTipoLabel);
+		
+		nombreTipoTextField = new JTextField();
+		nombreTipoTextField.setEditable(false);
+		panelTipos.add(nombreTipoTextField);
+		nombreTipoTextField.setColumns(10);
+		
+		JLabel descripcionTipoLabel = new JLabel("Descripcion");
+		descripcionTipoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		panelTipos.add(descripcionTipoLabel);
+		
+		descripcionTipoTextField = new JTextField();
+		descripcionTipoTextField.setEditable(false);
+		descripcionTipoTextField.setText("");
+		panelTipos.add(descripcionTipoTextField);
+		descripcionTipoTextField.setColumns(10);
+		
+		JLabel exposicionLabel = new JLabel("Exposicion");
+		exposicionLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		panelTipos.add(exposicionLabel);
+		
+		exposicionTextField = new JTextField();
+		exposicionTextField.setEditable(false);
+		panelTipos.add(exposicionTextField);
+		exposicionTextField.setColumns(10);
+		
+		JLabel duracionTipoLabel = new JLabel("Duracion");
+		duracionTipoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		panelTipos.add(duracionTipoLabel);
+		
+		duracionTipoTextField = new JTextField();
+		duracionTipoTextField.setEditable(false);
+		panelTipos.add(duracionTipoTextField);
+		duracionTipoTextField.setColumns(10);
+		
+		JLabel costoTipoLabel = new JLabel("Costo");
+		costoTipoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		panelTipos.add(costoTipoLabel);
+		
+		costoTipoTextField = new JTextField();
+		costoTipoTextField.setEditable(false);
+		costoTipoTextField.setText("");
+		panelTipos.add(costoTipoTextField);
+		costoTipoTextField.setColumns(10);
+		
+		JLabel fecAltaLabel = new JLabel("Fecha de alta");
+		fecAltaLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		panelTipos.add(fecAltaLabel);
+		
+		fecAltaTextField = new JTextField();
+		fecAltaTextField.setEditable(false);
+		panelTipos.add(fecAltaTextField);
+		fecAltaTextField.setColumns(10);
+		
+		JPanel panelBtn = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) panelBtn.getLayout();
+		flowLayout.setAlignment(FlowLayout.LEFT);
+		getContentPane().add(panelBtn);
+		
+		JButton actualizarBtn = new JButton("Actualizar Datos");
+		actualizarBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				actualizar();
+			}
+		});
+		actualizarBtn.setHorizontalAlignment(SwingConstants.LEFT);
+		panelBtn.add(actualizarBtn);
+
+		pack();
+	}
+	
+	private class ActualizarPaqueteListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			actualizar();			
+		}
+	}
+	
+	private class CargarPaqueteListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			paqueteComboBox.removeAllItems();
+			String p = (String) paqueteComboBox.getSelectedItem();
+			
+			IOferta io = Fabrica.getInstance().getIOferta();
+			
+			Iterator<String> paquetes = io.listarPaquetes().iterator();
+			while(paquetes.hasNext()) {				
+				paqueteComboBox.addItem(paquetes.next());
+			}
+						
+		}	
+	}
+	
+	public void actualizar(){
+		IOferta io = Fabrica.getInstance().getIOferta();
+		ManejadorP mP =  ManejadorP.getInstancia();
+		paqueteComboBox.removeAllItems();
+		
+		//Llenar combo paquetes
+		Set<String> listaP = io.listarPaquetes();
+		Iterator<String> i = listaP.iterator();
+		
+		while(i.hasNext()) {				
+			paqueteComboBox.addItem(i.next());
+		}
+		//darDatosPaquete
+		datosPaquete();
+		
+		//Listar Tipos
+		tiposComboBox.removeAllItems();
+		Paquete p = mP.encontrarPaquete((java.lang.String) paqueteComboBox.getSelectedItem());
+
+		
+		//Llenar combo tipos
+		Map<String, TipoPublicacionPaquete> map = p.getTipoPaqueteYCant();
+		Set<Map.Entry<String, TipoPublicacionPaquete>> tiposAsoc = map.entrySet();
+		Iterator<Map.Entry<String, TipoPublicacionPaquete>> it = tiposAsoc.iterator();
+		
+		
+		while(it.hasNext()) {
+			Map.Entry<String, TipoPublicacionPaquete> entry = it.next();
+			tiposComboBox.addItem(entry.getKey());
+		}
+		
+		//darDatosTipo
+		datosTipos();
+	}
+	
+	public void datosPaquete(){
+		ManejadorP mP =  ManejadorP.getInstancia();
+		String nom = (java.lang.String) paqueteComboBox.getSelectedItem();
+		Paquete p = mP.encontrarPaquete(nom);
+		nombreTextField.setText(p.getNombre());
+		descripcionTextField.setText(p.getDescripcion());
+		duracionTextField.setText(Integer.toString(p.getDuracion()));
+		descuentoTextField.setText(Float.toString(p.getDescuento()));
+		
+	}
+	public void datosTipos(){
+		ManejadorP mP =  ManejadorP.getInstancia();
+		//TipoPublicacion tp1 = tiposComboBox.getSelectedItem();
+		Map<String,TipoPublicacion> tpp = (Map<java.lang.String, TipoPublicacion>) tiposComboBox.getSelectedItem();
+		TipoPublicacion tp = tpp.get(tiposComboBox.getSelectedItem().toString());
+		if(tpp != null) {
+			nombreTipoTextField.setText(tp.getNombreTP());
+			descripcionTipoTextField.setText(tp.getDescripcion());
+			exposicionTextField.setText(Float.toString(tp.getExposicion()));
+			duracionTipoTextField.setText(Float.toString(tp.getDuracion()));
+			costoTipoTextField.setText(Float.toString(tp.getCosto()));
+			fecAltaTextField.setText(tp.getFecAlta().format(null));
+			
+		}
+	}
+}

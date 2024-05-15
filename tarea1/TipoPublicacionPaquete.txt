@@ -1,0 +1,30 @@
+package main.java.logica.clasesBasicas;
+
+public class TipoPublicacionPaquete {
+	private Paquete p;
+	private TipoPublicacion tp;
+	private int cant;
+	
+	public TipoPublicacionPaquete(Paquete p, TipoPublicacion tp, int cant) {
+		setP(p);
+		setTp(tp);
+		setCant(cant);
+	}
+
+	public void setP(Paquete p) {
+		this.p = p;
+	}
+
+	public void setTp(TipoPublicacion tp) {
+		this.tp = tp;
+	}
+
+	public void setCant(int cant) {
+		this.cant = cant;
+	}
+	
+	public TipoPublicacion getTp() {
+		return tp;
+	}
+	
+}
